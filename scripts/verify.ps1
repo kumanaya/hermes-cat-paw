@@ -83,7 +83,7 @@ Invoke-HermesClient status
 $status = $LASTEXITCODE
 Write-Host "verify: status exit $status (0=registered, 3=unregistered)"
 if ($status -eq 3) {
-    Write-Host "verify: not registered yet — registering now (do not wait for the hourly loop)"
+    Write-Host "verify: not registered yet — registering now (do not wait for the 5-minute loop)"
     Register-Page
     if ($LASTEXITCODE -eq 0) {
         Invoke-HermesClient status

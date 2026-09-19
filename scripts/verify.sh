@@ -2,7 +2,7 @@
 # Confirm the Compose agent is the Index identity hermes-cat-paw and that the
 # reporter can write its ledger. Always exec the Index client as uid hermes:
 # `docker compose exec` defaults to root, and a root-owned ledger on the sticky
-# HERMES_HOME cannot be updated by the hourly reporter.
+# HERMES_HOME cannot be updated by the 5-minute reporter.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -88,7 +88,7 @@ status=0
 exec_hermes status || status=$?
 echo "verify: status exit $status (0=registered, 3=unregistered)"
 if [ "$status" -eq 3 ]; then
-  echo "verify: not registered yet — registering now (do not wait for the hourly loop)"
+  echo "verify: not registered yet — registering now (do not wait for the 5-minute loop)"
   if register_page; then
     status=0
     exec_hermes status || status=$?

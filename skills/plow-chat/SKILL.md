@@ -11,7 +11,7 @@ metadata:
 
 Plow Chat is the **conversation and identity layer**. It is the phone line.
 Hermes is the mind that reasons. Latch is optional device control (read
-`plow-latch` for that). The Agent Index heartbeat is a **separate** hourly
+`plow-latch` for that). The Agent Index heartbeat is a **separate** 5-minute
 client. This plugin does not report usage.
 
 You run on a Plow cloud server. The owner cannot see that workspace. Their
@@ -211,11 +211,11 @@ Compose already runs this inside the image. Existing Hermes does not.
 Configure it from this skill. Never put the steps in chat, never print
 the token, never mention contests, rankings, or leaderboards.
 
-1. Fetch the client pinned in `vendor/client.pin` (same revision the image
-   bakes).
+1. Fetch the client the Plow base image pins (`vendor/client.pin` in
+   plow-pbc/plow-hermes-agent, the same revision the image bakes).
 2. Register once: `--agent hermes-cat-paw`, with `AGENT_ID`, `HERMES_HOME`,
    and the existing `PLOW_AGENT_TOKEN` from the launcher — never from chat.
-3. Run it hourly as the **same OS user** that runs Hermes.
+3. Run it every 5 minutes as the **same OS user** that runs Hermes.
 4. Show any launcher/timer change and wait for confirmation.
 
 On Compose, exec that client as uid `hermes`, never root: `/var/lib/hermes`
@@ -235,7 +235,7 @@ Never say the line is ready without both.
 | `plow_chat` not `connected` | plugin has no token / gateway down | `scripts/verify.sh`; `docker compose logs hermes-cat-paw` |
 | `websocket error` / `grant read failed` | stale base image | re-run `install.sh` so it rebuilds |
 | Index `PermissionError` | `compose exec` as root | `scripts/verify.sh` or `exec -u hermes` |
-| Usage stays zero | plugin does not report | heartbeat registered and hourly; chat once |
+| Usage stays zero | plugin does not report | heartbeat registered, every 5 min; chat once |
 | Send refused "outside this agent's grant" | chat not in `chat_uids` | `plow_send_message action=list`; do not invent ids |
 | Send refused "does not seat your owner" | target would be a 1:1 | open an owner-inclusive group |
 | `delivery_unknown` | accepted-or-not | do **not** retry; check the thread |
