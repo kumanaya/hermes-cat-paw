@@ -1,0 +1,44 @@
+[
+  {
+    "id": "text-the-cat",
+    "title": "I texted the cat from the phone I already had",
+    "tag": "imessage",
+    "images": [
+      "https://raw.githubusercontent.com/kumanaya/hermes-cat-paw/main/docs/agent-index/hackathon-banner.png"
+    ],
+    "body": "I did not install a new chat app. I texted from iMessage. Plow Chat is the line: a named slot on my account, Willow or whichever one was free, and the name in the dashboard is the same number I wrote.\n\nOne message in. The cat answered in the thread. Same phone, a different job whenever I asked for one."
+  },
+  {
+    "id": "spec-before-code",
+    "title": "Spec the signup drop-off before anyone writes code",
+    "tag": "Engineering",
+    "body": "I told the cat the signup drop-off was the actual bug, and to spec it before anyone wrote code.\n\nIt opened one playbook, to-spec, and stopped at the spec. Implementation waited until I said build. No invented process, no surprise pull request."
+  },
+  {
+    "id": "cold-email-unsent",
+    "title": "Draft the cold email. Don't send it.",
+    "tag": "Content Creation",
+    "body": "Three design partners, one cold email, and I said don't send it.\n\nThe cat ran prospecting, then cold-email, and left a draft in the thread. Nothing went out. Sending was still my line to say."
+  },
+  {
+    "id": "review-without-the-fork",
+    "title": "Review the PR. Don't run the fork.",
+    "tag": "Review",
+    "body": "PR 12 needed a read, not a surprise execution.\n\nI said don't run the fork. The cat opened change-review and stayed read-only. Tests that would run untrusted code waited until I said they could."
+  },
+  {
+    "id": "citation-check",
+    "title": "Check the citations before I trust the draft",
+    "tag": "research",
+    "body": "I had a draft and I did not want a confident paragraph with a broken citation.\n\nThe cat opened the academic pack, checked the references, and labeled what it had actually read. A paper is a paper. It did not turn the draft into a security hunt."
+  },
+  {
+    "id": "latch-if-you-want-one",
+    "title": "I tapped yes before it touched my machine",
+    "tag": "Setup & first run",
+    "images": [
+      "https://raw.githubusercontent.com/kumanaya/hermes-cat-paw/main/docs/agent-index/hackathon-cat-paw-latch.png"
+    ],
+    "body": "The cat already works from the text thread. I wanted a pause before an action hit my computer, so I opened Cat Paw Latch.\n\nI saw the command. I tapped yes. That stop is optional. The thread still answers when the desktop app is closed."
+  }
+]

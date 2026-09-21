@@ -70,14 +70,13 @@ register_page() {
     "$SERVICE" "$PYTHON" "$CLIENT" \
     --register --agent hermes-cat-paw \
     --name "Hermes Cat Paw" \
-    --blurb "Authorized recon from your phone. Latch approves every command and browser session on the computer you own." \
-    --runtime "Hermes / Plow Latch" \
+    --blurb "Text the cat. It picks a playbook and does the job." \
+    --runtime "Hermes / Plow Chat" \
     --repo "https://github.com/kumanaya/hermes-cat-paw" \
     --install-url "https://github.com/kumanaya/hermes-cat-paw/blob/main/docs/INSTALL.md" \
     --video "KjWFtHh0EFE" \
-    --image "https://raw.githubusercontent.com/kumanaya/hermes-cat-paw/main/hackathon-banner.png" \
-    --image "https://raw.githubusercontent.com/kumanaya/hermes-cat-paw/main/docs/images/cybersecurity.png" \
-    --image "https://raw.githubusercontent.com/kumanaya/hermes-cat-paw/main/docs/images/real-usage.png"
+    --image "https://raw.githubusercontent.com/kumanaya/hermes-cat-paw/main/docs/agent-index/hackathon-banner.png" \
+    --image "https://raw.githubusercontent.com/kumanaya/hermes-cat-paw/main/docs/agent-index/hackathon-cat-paw-latch.png"
 }
 
 echo "verify: Index client as uid hermes (never root)"
