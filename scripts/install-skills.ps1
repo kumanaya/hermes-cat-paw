@@ -67,7 +67,10 @@ $skillFiles |
     Sort-Object Count -Descending |
     ForEach-Object { "{0,4}  {1}" -f $_.Count, $_.Name }
 
-if ($List) { return }
+if ($List) {
+    & (Join-Path $PSScriptRoot "install-skill-packs.ps1") -List
+    return
+}
 
 function Copy-Docs([string]$Dest) {
     foreach ($name in $Docs) {
@@ -89,6 +92,8 @@ try {
         New-Item -ItemType Directory -Force -Path $dest | Out-Null
         Copy-Item -Path (Join-Path $stage "*") -Destination $dest -Recurse -Force
         Write-Host "install-skills.ps1: wrote $dest ($n skills)"
+        & (Join-Path $PSScriptRoot "install-skill-packs.ps1") -HomeDir $HomeDir
+        & (Join-Path $PSScriptRoot "install-context.ps1") -HomeDir $HomeDir
         return
     }
 
@@ -107,6 +112,8 @@ try {
     $landed = docker compose -f $ComposeFile exec -T -u hermes $Service sh -c "find /var/lib/hermes/skills/$PackName -name SKILL.md -type f | wc -l"
     Write-Host "install-skills.ps1: container pack has $($landed.Trim()) SKILL.md files"
     Write-Host "install-skills.ps1: authorized testing only. Live probes go through Latch."
+    & (Join-Path $PSScriptRoot "install-skill-packs.ps1")
+    & (Join-Path $PSScriptRoot "install-context.ps1")
 }
 finally {
     Remove-Item -LiteralPath $stage -Recurse -Force -ErrorAction SilentlyContinue

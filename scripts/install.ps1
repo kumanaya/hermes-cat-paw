@@ -175,7 +175,7 @@ docker compose -f $Compose up --build -d
 try {
     & (Join-Path $PSScriptRoot "install-skills.ps1")
 } catch {
-    Write-Host "install.ps1: cybersecurity skill pack did not land. Re-run scripts/install-skills.ps1."
+    Write-Host "install.ps1: skill packs did not land. Re-run scripts/install-skills.ps1."
 }
 # Last lines of the log: installing agents relay name + number. Do not skip.
 Write-Host "==== tell the owner (do not skip) ===="
@@ -184,5 +184,5 @@ try {
 } catch {
     Write-Host "install.ps1: could not name the line. Do not make the owner guess."
 }
-Write-Host "The agent is installed. The cybersecurity pack is in Hermes."
+Write-Host "The agent is installed. The skill packs are in Hermes."
 Write-Host "They text the number above from their phone."

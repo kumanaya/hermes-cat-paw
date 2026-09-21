@@ -1,26 +1,26 @@
 <p align="center">
   <a href="https://aiworthusing.com/agent-index/hermes-cat-paw">
-    <img src="https://img.shields.io/badge/%F0%9F%9A%80%20TRY%20NOW%20IN%20ONE%20CLICK-Open%20the%20Agent%20Index-8bd5ca?style=for-the-badge&labelColor=0b7285" alt="Try Hermes Cat Paw — open the Agent Index" />
+    <img src="https://img.shields.io/badge/%F0%9F%90%BE%20TEXT%20THE%20CAT-Open%20the%20Agent%20Index-111827?style=for-the-badge" alt="Text the cat — open the Agent Index" />
   </a>
 </p>
-<p align="center"><sub>One tap opens the Agent Index. On your phone, tap <strong>Text this agent</strong> and it sets itself up.</sub></p>
 
 <p align="center">
-  <img src="docs/images/banner.png" alt="Hermes Cat Paw" width="720" />
+  <img src="docs/images/banner.png" alt="Cat Paw" width="720" />
 </p>
 
-<h1 align="center">Hermes Cat Paw</h1>
+<h1 align="center">Cat Paw 🐾</h1>
 
 <p align="center">
-  Text a recon from your phone.<br />
-  Latch asks before anything leaves <em>your</em> computer.
+  <strong>Build. Ship. Repeat.</strong>
 </p>
 
 <p align="center">
-  <a href="https://aiworthusing.com/agent-index/hermes-cat-paw"><img src="https://img.shields.io/badge/Agent%20Index-hermes--cat--paw-8bd5ca?style=flat-square" alt="Agent Index" /></a>
+  Text the cat. It picks a playbook and does the job.
+</p>
+
+<p align="center">
+  <a href="https://aiworthusing.com/agent-index/hermes-cat-paw"><img src="https://img.shields.io/badge/Agent%20Index-hermes--cat--paw-111827?style=flat-square" alt="Agent Index" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="MIT" /></a>
-  <a href="https://github.com/mukul975/Anthropic-Cybersecurity-Skills"><img src="https://img.shields.io/badge/skills-818-1f6feb?style=flat-square" alt="818 cybersecurity skills" /></a>
-  <a href="https://github.com/kumanaya/cat-paw-latch"><img src="https://img.shields.io/badge/device-Cat%20Paw%20Latch-111827?style=flat-square" alt="Cat Paw Latch" /></a>
 </p>
 
 <p align="center">
@@ -28,138 +28,123 @@
   ·
   <a href="#how-it-works">How it works</a>
   ·
-  <a href="#what-you-can-ask">What you can ask</a>
+  <a href="#the-line">The line</a>
   ·
-  <a href="#skill-packs">Skill packs</a>
+  <a href="#text-it-like-this">Text it like this</a>
   ·
-  <a href="#why-latch">Why Latch</a>
+  <a href="#what-the-cat-knows">What the cat knows</a>
+  ·
+  <a href="#a-stop-if-you-want-one">A stop, if you want one</a>
 </p>
 
-> [!IMPORTANT]
-> **Authorized testing only.** Own the target, or have it in writing. No permission → no probe. That rule lives in the pack, the installer, and the agent skill.
+We build tools for people who build things.
 
-> [!TIP]
-> Start here → **[docs/INSTALL.md](docs/INSTALL.md)**. Pick agent only, Latch only, or both. You can add the other piece later.
+Sometimes the cat breaks production. Usually the cat fixes it too. 🐾
 
 ---
 
 ## How it works
 
-Three parts. You only need the first two to talk. You need the third to *touch* a host.
+You text. The cat texts back.
 
-| Piece | What it is | What it is not |
-| --- | --- | --- |
-| **Plow Chat** | The phone line. iMessage in, answer out. | Not your computer. |
-| **Hermes** | The mind. It loads a playbook and follows it. | Not a silent scanner. |
-| **Latch** | The brake. You see the command, then you tap yes or no. | Optional — until a live probe. |
+| Piece | What it is |
+| --- | --- |
+| **Plow Chat** | The phone line. |
+| **Hermes** | The brain. It opens one playbook and follows it. |
 
 ```mermaid
 flowchart LR
   phone["Your phone"] -->|"text"| plow["Plow Chat"]
-  plow --> hermes["Hermes + skill pack"]
-  hermes -->|"plan, report"| phone
-  hermes -->|"live probe"| latch["Latch on your PC"]
-  latch -->|"you approve"| device["Browser / shell / vault"]
+  plow --> hermes["Hermes + a playbook"]
+  hermes -->|"answer"| phone
 ```
 
-The agent can plan without a computer. It cannot silently scan one.
+No desktop app required. The playbooks are the job.
+
+---
+
+## The line
+
+You text from the phone you already have. Plow Chat is that conversation. iMessage in, the cat out.
+
+A line is a named slot on your Plow account: Willow, Aspen, Spruce, Elm, Alder. The installer takes one that's free. The name in the [dashboard](https://app.plow.co/dashboard) is the same number you text.
+
+One message can reach more than one agent. Same chat. A different line.
 
 <p align="center">
-  <img src="docs/images/workflow.png" alt="From a text on your phone to an approval on your computer" width="760" />
+  <img src="docs/images/lines.png" alt="Plow Chat unlocks named agent lines" width="760" />
 </p>
-<p align="center"><sub>You text. Hermes picks a skill. Latch holds the hop that would actually leave the machine.</sub></p>
 
 ---
 
-## What you can ask
+## Text it like this
 
-Talk like a teammate, not a scanner CLI.
+Talk like you would at 2am. The cat answers the same way.
 
 ```text
-You: We own app.example.com. Written scope is in the thread.
-     Start with recon — don't touch auth yet.
+You: Spec this before anyone writes code. The signup
+     drop-off is the actual bug.
 
-Cat Paw: I'll load performing-subdomain-enumeration-with-subfinder,
-         then stop before anything state-changing.
+Cat Paw: Opening to-spec. I'll stop at the spec.
+         Implementation waits until you say build.
 
-         Latch will ask before nmap / the browser session.
+You: Draft the cold email for the three design partners.
+     Don't send it.
 
-You: Review PR 12 on kumanaya/hermes-cat-paw. Don't run the
-     fork until I say so.
+Cat Paw: prospecting, then cold-email. Draft only.
+         Nothing leaves until you say so.
 
-Cat Paw: I'll open workspace acme-web if needed, load
-         change-review, checkout on Latch, then gitleaks
-         plus the Actions hunt.
+You: The renewal for Northwind looks bad. What do I
+     actually know?
 
-         Tests wait for your yes — a fork PR is untrusted code.
+Cat Paw: health-read, then renewal-risk. I'll label
+         what I read and what I haven't.
+
+You: Review PR 12. Don't run the fork.
+
+Cat Paw: change-review. Read-only until you say the
+         tests may run untrusted code.
 ```
 
-A normal engagement looks like this:
+A normal turn:
 
-1. **Confirm scope** in chat (who owns it, what's in, what's out).
-2. **Pick a playbook** — discovery first, hunts only after a signal.
-3. **Approve live probes** on the desktop (`nmap`, browser, a cookie from a bounty platform).
-4. **Keep evidence** on disk you own — one folder per target
-   (`~/CatPaw/workspaces/<slug>/` on the Latch computer, not in the
-   Hermes container and not under `~/Plow`).
-5. **Report** what was *observed*, *inferred*, *confirmed*, or *not tested*.
-
-Without Latch you can still read the pack, plan, and draft. You must not claim you probed a host from the cloud.
+1. Say the job.
+2. The cat opens **one** playbook. It does not invent the procedure.
+3. You get the result in the thread.
 
 ---
 
-## Skill packs
+## What the cat knows
 
-Hermes does not invent a pentest. It opens a playbook and works **that**
-objective.
+Hermes does not freelance a process. It opens a playbook and works that objective.
 
-The pack is [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills)
-(Apache-2.0): 818 `SKILL.md` files, 46 `subdomain` labels, mapped to ATT&CK,
-NIST CSF, ATLAS, D3FEND, AI RMF, and MITRE F3. Community project — not
-affiliated with Anthropic PBC. Install pins a commit and copies `skills/`
-into your Hermes home. The playbooks are not baked into the image. The
-image stays **slim**: `gitleaks`, `gh`, `jq`, `yq`, `shellcheck` only
-(`vendor/review-tools.pin`). Semgrep, Trivy, nmap, nuclei live on Latch.
+The playbooks are cloned at install. They are not baked into the image. Each pack keeps its own license. `skills/skill-packs/SKILL.md` is the map the agent actually reads.
 
-Counted from the pinned checkout (`54a7988`), by `subdomain:` frontmatter:
+| Pack | When you text about… | License |
+| --- | --- | --- |
+| [Engineering](https://github.com/mattpocock/skills) | Specs, bugs, TDD, review, CI, QA | MIT |
+| [Product](https://github.com/phuryn/pm-skills) | Discovery, a PRD, a roadmap | MIT |
+| [Marketing](https://github.com/coreyhaines31/marketingskills) | Copy, SEO, launch, ads, social, community, content | MIT |
+| Sales | A cold email, a prospect list, a POC | MIT |
+| [Customer success](https://github.com/CSPulse/customer-success-skills) | Health, renewal, a QBR, churn | MIT |
+| Finance | Runway, metrics, a CFO read. Not a trading desk | MIT |
+| [Design](https://github.com/emilkowalski/skills) | Motion, UI, accessibility | MIT |
+| Documents | A PDF, docx, pptx, or xlsx you can open | MIT |
+| [Academic research](https://github.com/Imbad0202/academic-research-skills) | A paper, a citation check | CC BY-NC 4.0. Not MIT |
+| Security | Authorized recon, a hunt, a report. One pack among the others | Apache-2.0 |
 
-| Domain | Skills | Reach for it when you need… |
-| --- | ---: | --- |
-| cloud-security | 66 | AWS, Azure, GCP, CSPM, cloud forensics |
-| threat-hunting | 58 | Hypothesis hunts, LOTL, EVTX |
-| threat-intelligence | 52 | STIX/TAXII, MISP, actor profiling |
-| network-security | 43 | IDS/IPS, traffic, segmentation |
-| web-application-security | 42 | OWASP, SQLi, XSS, SSRF, subdomains |
-| digital-forensics | 41 | Disk, memory, timelines |
-| malware-analysis | 39 | Static/dynamic RE, sandboxes |
-| identity-access-management | 37 | Entra ID, phishing, PAM |
-| soc-operations | 35 | Playbooks, escalation, tabletops |
-| container-security | 33 | K8s RBAC, Falco, image scan |
-| red-teaming | 33 | ADCS, BloodHound, C2, relay |
-| api-security | 28 | GraphQL, REST, OWASP API |
-| ot-ics-security | 28 | Modbus, DNP3, SCADA |
-| security-operations | 28 | SIEM, detection engineering |
-| incident-response | 26 | Containment, ransomware IR |
-| vulnerability-management | 25 | Nessus, CVSS, patch SLAs |
-| penetration-testing | 21 | Network, web, cloud, mobile |
-| *29 other labels* | 183 | See `cybersecurity-pack` / `--list` |
-| **Total** | **818** | |
+Care with the security pack. Probe a target you own, or one you have in writing. Without that, no probe.
 
-Start from `conducting-external-reconnaissance-with-osint`,
-`performing-subdomain-enumeration-with-subfinder`, or
-`performing-web-application-penetration-test`. Add a hunt skill only when
-discovery produces a signal. `scripts/install-skills.sh --list` reprints
-the full subdomain tally.
+Not installed, on purpose:
 
-A **pull request, patch, or snippet** is `change-review`: static gates
-(secrets, CI injection, lockfile, SAST) run with the CLIs **in this
-image**. Latch checks a private repo out inside the **target workspace**
-(`~/CatPaw/workspaces/<slug>/` on your computer) and stores the report.
-Fork PRs stay read-only until you say the tests may execute untrusted
-code. One host or repo → one folder; do not mix targets.
+- `slavingia/skills` has no license.
+- Anthropic's `pdf` / `docx` / `pptx` / `xlsx` skills are source-available, not open source.
+- RH, recruiting, legal, investor relations, and office-manager playbooks we found cannot be redistributed here.
+
+The image stays small. `gitleaks`, `gh`, `jq`, `yq`, `shellcheck` are in it (`vendor/review-tools.pin`).
 
 <details>
-<summary><strong>Load or reload the pack</strong></summary>
+<summary><strong>Load or reload the packs</strong></summary>
 
 ```sh
 git clone https://github.com/kumanaya/hermes-cat-paw.git
@@ -168,164 +153,57 @@ cd hermes-cat-paw
 # ./scripts/install-skills.sh --home ~/.hermes  # existing Hermes
 ```
 
-Windows: `scripts/install-skills.ps1`. Authorized testing only; live probes go through Latch.
-
-</details>
-
-The image stays slim. Secrets and PR metadata run here; heavy scanners stay on Latch.
-
-| Already in the Compose image | Latch (your IP, your disk) |
-| --- | --- |
-| `gitleaks`, `gh`, `jq`, `yq`, `shellcheck` | Semgrep, Trivy, nmap, nuclei, browser |
-| Versions pinned in `vendor/review-tools.pin` | Evidence under `~/CatPaw/workspaces/<slug>/` |
-
-Do not `apt-get` extra scanners into the container — that is how the image got huge.
-
----
-
-## Why this, in this era
-
-Attackers did not invent new sins. They **compressed the old ones**. Exposed services, weak identity, unpatched edge — Rapid7's 2026 landscape still starts there. What changed is the clock: AI scaled recon until the window between “this is on the internet” and “this is being used” is minutes, not weeks.
-
-A single CVE on a dashboard is the wrong picture. Harm lands as a **chain** — one verified behavior feeding the next.
-
-<p align="center">
-  <img src="docs/images/cybersecurity.png" alt="Authorized recon chain: recon, analyze, exploit, post-exploitation, report" width="760" />
-</p>
-<p align="center"><sub>Find the path on assets you are allowed to test. Latch is the stop on every hop.</sub></p>
-
-<details>
-<summary><strong>Two 2026 shapes of the same chain</strong></summary>
-
-**Identity as the door.** In September 2026, Microsoft tracked passkey-themed phishing that did not stop at the inbox. After the identity fell, operators enrolled *their* MFA, ran Graph reconnaissance (`/users`, `/groups`, `/sites`, `/drives`, `/messages`), then collected SharePoint, OneDrive, and mail. Identity was the door. Cloud APIs were the hallway.
-
-**Publishing identity as the incident.** In August 2026, ChainDrop was a self-propagating npm worm across 400+ packages. It stole developer and CI tokens (npm, GitHub, AWS, Vault), then republished itself. The first package was not the incident. The publishing identity was.
-
-**External web is still how a lot of this begins.** A leaked source map names an internal API. An unauthenticated export dumps ledgers. A staging host holds VPN TOTP seeds. None of those is “critical” alone. Together they are a path from a public JS bundle to a network you thought was inside.
-
-Defense here is not more dashboards. It is seeing that chain on **your** assets first — with permission, with evidence, and with a stop you actually control.
+Windows: `scripts/install-skills.ps1`.
 
 </details>
 
 ---
 
-## Attack chains (co-location is not a path)
+## A stop, if you want one
 
-Several findings on the same host are **not** a chain. The output of step A has to be the input of step B, under the same authorized conditions. [`analyzing-cyber-kill-chain`](https://github.com/mukul975/Anthropic-Cybersecurity-Skills/blob/main/skills/analyzing-cyber-kill-chain/SKILL.md) is the pack's map of that sequence — it does not turn co-located scanner labels into a story.
-
-```mermaid
-flowchart LR
-  recon["JS or subdomain"] --> api["Hidden or staging API"]
-  api --> ident["User or token"]
-  ident --> object["Unauthorized object read"]
-  object --> impact["Compound impact"]
-```
-
-| “Looks like a path” | What has to be true before you call it one |
-| --- | --- |
-| Source map → hidden API | The extracted base URL is the API you then tested |
-| User enum → IDOR | The enumerated id addresses another *approved* identity's object |
-| CORS → protected data | An approved browser session returns non-public data to a controlled origin |
-| SSRF → internal service | A callback or response identifies that service |
-| Exposed credential → repo | The scoped credential works on an approved test resource |
-| WordPress plugin → admin | Upload/write and executable handling are verified, with cleanup |
-
-Label every step: **observed** · **confirmed** · **inferred** · **not tested**. Inferred does not become confirmed because the early steps worked. A skill is a gate, not a script to force the next hop.
-
-Latch sits on the arrows. You see the argv, the origin, the path. You are the scope gate.
-
----
-
-## Why Latch
-
-Recon is commands, a browser, and credentials. Those do not belong in a datacenter workspace.
+The cat ships without a desktop app. If you want a pause before an action hits your machine, that project is [Cat Paw Latch](https://github.com/kumanaya/cat-paw-latch). You see the command. You tap yes or no.
 
 <p align="center">
   <img src="docs/images/approve.png" alt="Approve an action on your computer" width="560" />
 </p>
 
-| You get | What that means |
-| --- | --- |
-| **See it before it leaves** | The approval card shows argv, origin, path. |
-| **Your network, not ours** | Bot walls and geo see your IP. Authenticated apps need `plow_browser_open`, not a cloud `fetch`. |
-| **Secrets stay in the vault** | `fill_secret` types. The model never reads the value back. |
-| **A stop is a stop** | Denial, timeout, MFA, disconnect, host-block. No bypass. |
-| **Evidence on disk you own** | `~/CatPaw/workspaces/<slug>/` via Latch. Not the container. Latch's audit is append-only. |
-
-<p align="center">
-  <img src="docs/images/lines.png" alt="Plow Chat unlocks named agent lines in iMessage" width="760" />
-</p>
-<p align="center"><sub>A Plow line is already waiting on your account — Willow, Aspen, Spruce, Elm, Alder. Cat Paw takes one that's free and keeps it online.</sub></p>
+That is optional. The agent works from the text thread either way.
 
 ---
 
-## The questions it refuses to skip
+## The cat stops
 
-If the agent cannot answer these, it must stop.
+A few things it will not smooth over.
 
-<details>
-<summary><strong>Open the checklist</strong></summary>
-
-<!-- blank line required so GitHub parses the table inside details -->
-
-| Question | Why it matters | How Cat Paw holds it |
-| --- | --- | --- |
-| Who authorized this target? | Unscoped recon is indistinguishable from crime. AI made it cheap. | No permission in chat → no probe. |
-| Is this discovery or validation? | Spray-and-pray burns scope and produces noise. | Playbooks separate the stages. State-changing work needs an explicit yes. |
-| Does A actually enable B? | Co-located findings inflate severity. That is how reports lie. | Read the matching pack skill. Require evidence on the transition. |
-| Which identity is acting? | 2026 intrusions persist by enrolling *their* MFA. | Relay authenticates the agent. Latch scopes the request. You stay the owner. |
-| Where do secrets live? | Tokens and cookies are the payload. Chat is a leak. | Vault on the device. `fill_secret` types; nothing comes back into chat. |
-| What leaves this machine? | Cloud fetch is the wrong IP, the wrong bot wall, the wrong evidence. | Live web and scanners run through Latch, after approval. |
-| Demonstrated vs inferred? | A `200`, a version string, or an open port is not impact. | Observed / inferred / confirmed / not tested — keep them apart. |
-| What is the stop? | Retrying around a timeout is an unscoped scanner. | Denial, timeout, MFA, disconnect, host-block: stop. |
-| Where is the evidence? | You cannot reproduce, redact, or defend a finding you didn't keep. | `~/CatPaw/workspaces/<slug>/` on the Latch computer, plus the append-only audit. |
-
-</details>
-
-If you cannot name the **target**, the **permission**, the **step**, and the **stop**, you are not doing recon. You are hoping.
+- No playbook for the job → it says so. It does not improvise a procedure.
+- A security target without written scope → no probe.
 
 ---
 
-## Security model
-
-The control plane lives on the device you own. Nothing inbound is opened on your network.
-
-| Protected | How |
-| --- | --- |
-| **Who is acting** | The relay authenticates the agent. Pending work and saved rules key on that identity. |
-| **What is allowed** | Acting operations pass a device-local capability check *and* your approval. |
-| **Where data lives** | Vault stays on the device. The agent may request a use. It never reads a secret back. |
-| **How the device is reached** | Latch connects **out** to Plow. Credentials stay out of URLs and logs. |
-| **What changed** | Paths are canonicalized before the prompt. The audit trail is append-only. |
-
-On Windows and Linux, [Cat Paw Latch](https://github.com/kumanaya/cat-paw-latch) adds native hardening: sandboxed command workspaces, presence checks, secrets that never leave the machine. Chat works anywhere you can text. Device control follows the Latch you actually run — upstream on macOS, the fork on Windows and Linux, [Omarchy](https://github.com/omacom/omarchy) as the reference desktop.
-
----
-
-## Start here
+## Install
 
 Full guide: **[docs/INSTALL.md](docs/INSTALL.md)**.
 
 | I want | What I get |
 | --- | --- |
-| [**The agent**](docs/INSTALL.md#agent-only) | Text Hermes from my phone. No desktop app. |
-| [**Latch**](docs/INSTALL.md#latch-only) | Approve actions on this computer. |
-| [**Both**](docs/INSTALL.md#both) | Phone line + yes/no on this machine. |
-| [**I already run Hermes**](docs/INSTALL.md#existing-hermes) | Keep my install. Add the Cat Paw line. |
+| [**The agent**](docs/INSTALL.md#agent-only) | Text the cat from my phone. |
+| [**I already run Hermes**](docs/INSTALL.md#existing-hermes) | Keep it. Add the cat. |
 
 ```sh
 git clone https://github.com/kumanaya/hermes-cat-paw.git
 cd hermes-cat-paw
-# then open docs/INSTALL.md and pick a path
+# docs/INSTALL.md — pick a path
 ```
+
+Push button. Ship software. Acquire treats. 🐾
 
 ---
 
 <p align="center">
-  <strong>Authorized recon. Visible permission. Your computer stays yours.</strong>
+  <strong>Cat Paw 🐾 — Build. Ship. Repeat.</strong>
 </p>
 
 <p align="center">
   MIT · <a href="LICENSE">LICENSE</a>
-  · playbooks Apache-2.0 © <a href="https://github.com/mukul975/Anthropic-Cybersecurity-Skills">mukul975/Anthropic-Cybersecurity-Skills</a>
+  · playbooks keep the license they shipped with
 </p>

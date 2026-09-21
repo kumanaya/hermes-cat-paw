@@ -105,6 +105,10 @@ if ($status -eq 0) {
 }
 $pack = docker compose -f $ComposeFile exec -T -u hermes $Service sh -c 'find /var/lib/hermes/skills/cybersecurity-skills -name SKILL.md -type f 2>/dev/null | wc -l'
 Write-Host "verify: cybersecurity-skills pack=$($pack.Trim()) (run scripts/install-skills.ps1 if this is 0)"
+foreach ($extra in @("engineering/mattpocock", "engineering/addyosmani", "engineering/alirezarezvani", "product", "marketing", "content", "sales", "finance", "customer-success", "design/emilkowalski", "design/ui-skills", "academic-research", "skill-packs")) {
+    $n = docker compose -f $ComposeFile exec -T -u hermes $Service sh -c "find /var/lib/hermes/skills/$extra -name SKILL.md -type f 2>/dev/null | wc -l"
+    Write-Host "verify: $extra=$($n.Trim())"
+}
 Write-Host "verify: baked review CLIs"
 docker compose -f $ComposeFile exec -T -u hermes $Service /opt/cat-paw/verify-review-tools.sh
 if ($LASTEXITCODE -ne 0) { throw "verify: review CLIs missing. Rebuild the image (scripts/install.ps1)." }

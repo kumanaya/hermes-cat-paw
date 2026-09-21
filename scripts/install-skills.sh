@@ -102,6 +102,7 @@ echo "install-skills.sh: $n SKILL.md files at $sha"
 print_domains
 
 if (( LIST_ONLY )); then
+  "$ROOT/scripts/install-skill-packs.sh" --list
   exit 0
 fi
 
@@ -131,6 +132,8 @@ install_tree() {
 
 if [[ -n "$HOME_DIR" ]]; then
   install_tree "$HOME_DIR/skills/$PACK_NAME"
+  "$ROOT/scripts/install-skill-packs.sh" --home "$HOME_DIR"
+  bash "$ROOT/scripts/install-context.sh" --home "$HOME_DIR"
   exit 0
 fi
 
@@ -154,3 +157,5 @@ landed="$("${COMPOSE[@]}" exec -T -u hermes "$SERVICE" sh -c \
 landed="${landed//$'\r'/}"
 echo "install-skills.sh: container pack has $landed SKILL.md files"
 echo "install-skills.sh: authorized testing only. Live probes go through Latch."
+"$ROOT/scripts/install-skill-packs.sh"
+bash "$ROOT/scripts/install-context.sh"
