@@ -97,10 +97,13 @@ Relay SMS like this:
 
 Windows: .ps1 scripts. Linux/Omarchy: .sh scripts.
 Success is scripts/verify.sh (Windows: verify.ps1) exiting 0, then
-scripts/install-skills.sh loading the cybersecurity pack (authorized
-testing only). The installer prints `announce-line: dashboard name` and
+scripts/install-skills.sh loading the skill packs (cybersecurity plus
+engineering, product, marketing, design, and academic research). That same
+step appends a Cat Paw section to AGENTS.md. The image composes SOUL.md on
+boot from the base persona plus PERSONA.md. The
+installer prints `announce-line: dashboard name` and
 `announce-line: text this number`. In the same turn, tell the owner:
-the agent is installed, the pack is in Hermes, the dashboard name, and
+the agent is installed, the packs are in Hermes, the dashboard name, and
 the phone number they must text. The image stays slim (gitleaks, gh,
 jq, yq, shellcheck). Never say "the line is ready" without
 both. Never make them guess. Never print tokens or plow-credentials.
@@ -242,9 +245,10 @@ is a directory, rmdir it if empty and run install.sh again.
 Do not print, request, or commit plow-credentials or PLOW_AGENT_TOKEN.
 Relay SMS verbatim. Success is scripts/verify.sh (Windows: verify.ps1)
 exiting 0, then scripts/install-skills.sh (Windows: install-skills.ps1)
-loading the cybersecurity pack. The installer prints `announce-line:
+loading the skill packs. The same step appends a Cat Paw section to
+AGENTS.md. SOUL.md is composed on boot. The installer prints `announce-line:
 dashboard name` and `announce-line: text this number`. In the same turn,
-tell the owner: the agent is installed, Latch is open, the pack is in
+tell the owner: the agent is installed, Latch is open, the packs are in
 Hermes, the dashboard name, and the phone number they must text. Never
 say "the line is ready" without both. Never make them guess.
 
@@ -277,9 +281,11 @@ First inspect, without changing anything:
 - whether the official Plow Chat plugin is already installed;
 - where this installation stores credentials.
 
-Preserve my existing HERMES_HOME, SOUL/persona, sessions, skills, provider
+Preserve my existing HERMES_HOME, a custom SOUL/persona, sessions, skills, provider
 settings, configuration, and credentials. Do not create a second Hermes home,
-reset a volume, replace config.yaml, or print any secret.
+reset a volume, replace config.yaml, or print any secret. install-skills
+appends a Cat Paw section to AGENTS.md. It writes SOUL.md only when that file
+is missing or still the stock Hermes seed.
 
 If the Plow Chat plugin is missing, install the official plugin compatible
 with this Hermes version and show me what will change before applying it.

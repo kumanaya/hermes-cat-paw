@@ -19,8 +19,8 @@ RUN chmod 0755 /opt/cat-paw/install-review-tools.sh /opt/cat-paw/verify-review-t
  && /opt/cat-paw/install-review-tools.sh \
  && /opt/cat-paw/verify-review-tools.sh
 
-# Hermes Cat Paw overlays product skills (Plow Chat, Plow Latch, cybersecurity
-# pack routing, change-review, target-workspace, image-tools).
+# Hermes Cat Paw overlays product skills (Plow Chat, Plow Latch, playbook
+# routers, change-review, target-workspace, image-tools).
 COPY --chown=10000:10000 skills/ /var/lib/hermes/skills/
 COPY --chown=10000:10000 skills/ /opt/hermes/skills/
 
@@ -29,3 +29,11 @@ RUN find /opt/hermes/skills -type d -exec chmod 0755 {} + \
  && find /opt/hermes/skills -type f -exec chmod 0644 {} + \
  && find /var/lib/hermes/skills -type d -exec chmod 0755 {} + \
  && find /var/lib/hermes/skills -type f -exec chmod 0644 {} +
+
+# Identity specific to this agent. plow-init writes $HERMES_HOME/SOUL.md on
+# every boot as the base persona plus /opt/hermes/plow-seed/persona.md.
+# The source file is PERSONA.md. The destination stays lowercase: that is the
+# path plow-init opens. Do not COPY a SOUL.md into the home: the volume hides
+# the image layer, and the next boot overwrites it.
+COPY PERSONA.md /opt/hermes/plow-seed/persona.md
+RUN chmod 0644 /opt/hermes/plow-seed/persona.md

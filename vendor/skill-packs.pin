@@ -1,0 +1,159 @@
+# Extra skill packs. Cloned at install into the Hermes home. Not baked into
+# the image. The cybersecurity pack stays in cybersecurity-skills.pin.
+# Playbook text is not relicensed. Each pack keeps the upstream license file.
+#
+# router <dir under skills/>   copied from this repo into the Hermes home
+# pack <id>
+# repo <git url>
+# sha <full commit>
+# dest <path under skills/>
+# layout flat|grouped          grouped nests children under the include parent
+# include <path in the checkout>
+# exclude <child directory name>
+# doc <file at checkout root copied next to the playbooks>
+
+router skill-packs
+router engineering-pack
+router product-pack
+router marketing-pack
+router sales-pack
+router customer-success-pack
+router finance-pack
+router design-pack
+router documents
+router academic-research-pack
+
+pack engineering-matt
+repo https://github.com/mattpocock/skills.git
+sha c55ee46073ed923f86ce59a5eb3b6d895095d1b7
+dest engineering/mattpocock
+layout flat
+include skills/engineering
+include skills/productivity
+exclude setup-matt-pocock-skills
+doc LICENSE
+
+pack engineering-osmani
+repo https://github.com/addyosmani/agent-skills.git
+sha dc27a9c2e13721158157632de61b4106c6c2a2a1
+dest engineering/addyosmani
+layout flat
+include skills/ci-cd-and-automation
+include skills/observability-and-instrumentation
+include skills/shipping-and-launch
+include skills/performance-optimization
+include skills/security-and-hardening
+include skills/documentation-and-adrs
+include skills/git-workflow-and-versioning
+include skills/code-simplification
+include skills/incremental-implementation
+include skills/planning-and-task-breakdown
+doc LICENSE
+
+pack product-pm
+repo https://github.com/phuryn/pm-skills.git
+sha 8607e3b077817f89bf4a9b623246219734ac3be0
+dest product
+layout grouped
+include pm-ai-shipping/skills
+include pm-data-analytics/skills
+include pm-execution/skills
+include pm-go-to-market/skills
+include pm-market-research/skills
+include pm-marketing-growth/skills
+include pm-product-discovery/skills
+include pm-product-strategy/skills
+include pm-toolkit/skills
+doc LICENSE
+
+pack marketing
+repo https://github.com/coreyhaines31/marketingskills.git
+sha 5b2c0007766c6a1cf1d53fd8fc73e979e0821022
+dest marketing
+layout flat
+include skills/copywriting
+include skills/copy-editing
+include skills/seo-audit
+include skills/ai-seo
+include skills/programmatic-seo
+include skills/launch
+include skills/pricing
+include skills/onboarding
+include skills/content-strategy
+include skills/cro
+include skills/ads
+include skills/social
+include skills/referrals
+include skills/community-marketing
+include skills/prospecting
+include skills/cold-email
+include skills/sales-enablement
+doc LICENSE
+
+pack design-emil
+repo https://github.com/emilkowalski/skills.git
+sha 85e8e2363b713506e1d5b6e07a0eb2da66be1bc3
+dest design/emilkowalski
+layout flat
+include skills
+doc LICENSE
+
+pack design-ui
+repo https://github.com/ibelick/ui-skills.git
+sha b1cc8e0073ac64b09b3d38cd604407aa20c2b7ad
+dest design/ui-skills
+layout flat
+include skills
+doc LICENSE
+
+pack content-creator
+repo https://github.com/alirezarezvani/claude-skills.git
+sha 19392f7a08264ed00486a251f5b2098321771f94
+dest content
+layout flat
+include marketing-skill/skills/content-creator
+doc LICENSE
+
+pack sales-engineer
+repo https://github.com/alirezarezvani/claude-skills.git
+sha 19392f7a08264ed00486a251f5b2098321771f94
+dest sales
+layout flat
+include business-growth/skills/sales-engineer
+doc LICENSE
+
+pack finance-lead
+repo https://github.com/alirezarezvani/claude-skills.git
+sha 19392f7a08264ed00486a251f5b2098321771f94
+dest finance
+layout flat
+include finance/skills/financial-analyst
+include c-level-advisor/skills/cfo-advisor
+doc LICENSE
+
+pack qa-security
+repo https://github.com/alirezarezvani/claude-skills.git
+sha 19392f7a08264ed00486a251f5b2098321771f94
+dest engineering/alirezarezvani
+layout flat
+include engineering-team/skills/senior-qa
+include engineering-team/skills/senior-security
+doc LICENSE
+
+pack customer-success
+repo https://github.com/CSPulse/customer-success-skills.git
+sha 0e8727739bba6102d13ac064ec9d0ef30fbe983f
+dest customer-success
+layout flat
+include skills
+doc LICENSE
+
+pack academic-research
+repo https://github.com/Imbad0202/academic-research-skills.git
+sha a1819d82c36969d9137f7f621916536262af6b4f
+dest academic-research
+layout flat
+include skills
+doc LICENSE
+doc NOTICE.md
+doc CITATION.cff

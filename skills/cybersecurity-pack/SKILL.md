@@ -12,7 +12,9 @@ metadata:
 This agent ships [mukul975/Anthropic-Cybersecurity-Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills)
 (Apache-2.0). Community catalogue, not affiliated with Anthropic PBC. It is
 **not** a license to scan the internet. Only test targets the owner **owns**
-or has **written permission** to test. If that is missing, refuse and ask.
+or has **written permission** to test. If that is missing, refuse and ask. This is one pack. For
+engineering, product, marketing, design, documents, or academic research,
+read `skill-packs` first.
 
 The playbooks land at `skills/cybersecurity-skills/` after
 `scripts/install-skills.sh` (Windows: `install-skills.ps1`). Each skill is a

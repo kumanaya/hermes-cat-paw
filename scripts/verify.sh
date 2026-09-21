@@ -137,6 +137,14 @@ pack="${pack//$'\r'/}"
 pack="${pack#"${pack%%[![:space:]]*}"}"
 echo "verify: cybersecurity-skills pack=${pack:-0} (run scripts/install-skills.sh if this is 0)"
 
+for extra in engineering/mattpocock engineering/addyosmani engineering/alirezarezvani product marketing content sales finance customer-success design/emilkowalski design/ui-skills academic-research skill-packs; do
+  n="$("${COMPOSE[@]}" exec -T -u hermes "$SERVICE" sh -c \
+    "find /var/lib/hermes/skills/$extra -name SKILL.md -type f 2>/dev/null | wc -l" || true)"
+  n="${n//$'\r'/}"
+  n="${n#"${n%%[![:space:]]*}"}"
+  echo "verify: $extra=${n:-0}"
+done
+
 echo "verify: baked review CLIs"
 if ! "${COMPOSE[@]}" exec -T -u hermes "$SERVICE" /opt/cat-paw/verify-review-tools.sh; then
   echo "verify: review CLIs missing. Rebuild the image (scripts/install.sh)." >&2
