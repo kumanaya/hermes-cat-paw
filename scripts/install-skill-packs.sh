@@ -138,7 +138,7 @@ sync_checkout() {
 
 copy_skill_dir() {
   local src="$1" parent="$2" name="$3"
-  rm -rf "$parent/$name"
+  rm -rf "${parent:?}/${name:?}"
   mkdir -p "$parent"
   cp -a "$src" "$parent/$name"
 }
@@ -231,7 +231,7 @@ copy_routers() {
       echo "install-skill-packs.sh: missing router skills/$name/SKILL.md" >&2
       exit 1
     }
-    rm -rf "$skills_root/$name"
+    rm -rf "${skills_root:?}/${name:?}"
     cp -a "$ROOT/skills/$name" "$skills_root/$name"
   done
 }
