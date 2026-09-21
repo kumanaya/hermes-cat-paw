@@ -7,8 +7,11 @@ services:
     build: .
     env_file:
       # Base 51f83158 reads PLOW_API_BASE from the environment (plow#2007).
-      # The file mount below is no longer enough on its own.
-      - plow-credentials
+      # The file mount below is no longer enough on its own. Keep this optional
+      # so CI can validate Compose before an install creates the credentials;
+      # install.sh still requires the file before starting the agent.
+      - path: plow-credentials
+        required: false
     environment:
       # Product identity for the Agent Index. Literal on purpose: do not
       # interpolate a host AGENT_ID, or usage reports as a different agent.
