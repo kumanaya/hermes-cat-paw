@@ -5,10 +5,17 @@ services:
     # Hermes Cat Paw runs on the official Hermes base image.
     # Cold build is mostly the public upstream pull.
     build: .
+    env_file:
+      # Base 51f83158 reads PLOW_API_BASE from the environment (plow#2007).
+      # The file mount below is no longer enough on its own.
+      - plow-credentials
     environment:
       # Product identity for the Agent Index. Literal on purpose: do not
       # interpolate a host AGENT_ID, or usage reports as a different agent.
       AGENT_ID: hermes-cat-paw
+      # plow-init reads this every boot. Without it, the seed resets the
+      # model to anthropic/claude-sonnet-5. Must be on Luna's allowlist.
+      HERMES_MODEL: openai/gpt-5.6-luna
     volumes:
       # File created by `scripts/install.sh` (`plow-agents mint`). Never commit
       # it. Do not `docker compose up` before that file exists: Compose would
