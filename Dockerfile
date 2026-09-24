@@ -11,8 +11,8 @@ FROM public.ecr.aws/e1h7x4a2/plow-cloud-agents:base-67021a7029e33e80bcb27899be65
 ENV AGENT_ID=hermes-cat-paw
 
 # Tiny review CLIs (gitleaks, gh, jq, yq, shellcheck). No Semgrep/Trivy/
-# nmap — those bloat the image. Live probes stay on Latch. Playbooks clone
-# at install time.
+# nmap — those bloat the image. Live probes stay on Latch. External playbooks
+# clone at install time; local adapted packs are baked or copied.
 COPY vendor/review-tools.pin /opt/cat-paw/review-tools.pin
 COPY image/install-review-tools.sh image/verify-review-tools.sh /opt/cat-paw/
 RUN chmod 0755 /opt/cat-paw/install-review-tools.sh /opt/cat-paw/verify-review-tools.sh \
@@ -23,6 +23,8 @@ RUN chmod 0755 /opt/cat-paw/install-review-tools.sh /opt/cat-paw/verify-review-t
 # routers, change-review, target-workspace, image-tools).
 COPY --chown=10000:10000 skills/ /var/lib/hermes/skills/
 COPY --chown=10000:10000 skills/ /opt/hermes/skills/
+COPY --chown=10000:10000 LICENSE /var/lib/hermes/skills/LICENSE.hermes-cat-paw
+COPY --chown=10000:10000 LICENSE /opt/hermes/skills/LICENSE.hermes-cat-paw
 
 # Normaliza modos sem mexer no dono do root de skills (que é da base).
 RUN find /opt/hermes/skills -type d -exec chmod 0755 {} + \

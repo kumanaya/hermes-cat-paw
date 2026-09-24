@@ -1,0 +1,7 @@
+*.sh text eol=lf
+scripts/verify-local-skills.py text eol=lf
+Dockerfile text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+vendor/*.pin text eol=lf
+*.ps1 text eol=crlf

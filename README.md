@@ -118,7 +118,7 @@ A normal turn:
 
 Hermes does not freelance a process. It opens a playbook and works that objective.
 
-The playbooks are cloned at install. They are not baked into the image. Each pack keeps its own license. `skills/skill-packs/SKILL.md` is the map the agent actually reads.
+Local adapted routers and their child playbooks are baked into the image and copied into an existing Hermes home. External playbooks are pinned and cloned at install. `skills/skill-packs/SKILL.md` is the map the agent actually reads.
 
 | Pack | When you text about… | License |
 | --- | --- | --- |
@@ -132,6 +132,23 @@ The playbooks are cloned at install. They are not baked into the image. Each pac
 | Documents | A PDF, docx, pptx, or xlsx you can open | MIT |
 | [Academic research](https://github.com/Imbad0202/academic-research-skills) | A paper, a citation check | CC BY-NC 4.0. Not MIT |
 | Security | Authorized recon, a hunt, a report. One pack among the others | Apache-2.0 |
+
+### Local adapted sources
+
+| Source repo | Audited commit | License and scope caveat |
+| --- | --- | --- |
+| `obra/superpowers` | `5bf4e78011075bcfc0dc295f0724994cd123ee71` | MIT; local concepts only, no upstream prose or automatic bootstrap/worktree workflow |
+| `DietrichGebert/ponytail` | `e3ba2aa6f1e6f0bc4d69eb09c9f0d0a93af56156` | MIT; local necessity, removal, and debt procedures with safety and rollback preserved |
+| `JuliusBrussee/caveman` | `2fd153c67988e980fb0b2455c90832159a6a5a25` | MIT skill concepts only; no BSL runtime, proxy, gateway, or telemetry |
+| `ayghri/i-have-adhd` | `839872f9d1cd634fed642b4589ce7226199cc15f` | MIT; renamed opt-in style, not a diagnosis or medical claim |
+| `Graphify-Labs/graphify` | `4c735618f3d56fd622c2049771584621c31ba9ff` | Apache-2.0; local graph guidance, no third-party assets or remote LLM ingest |
+| `Egonex-AI/Understand-Anything` | `6df3065f1d8ddc2ce3615314d1d493f36d6b1c80` | MIT; local knowledge procedures, no mutable installer or unverified viewer claim |
+| `mvanhorn/last30days-skill` | `084662b501fb0dba95bd55eff0c258d35e0dc499` | MIT; source-transparent public research, no cookies, paid APIs, hosted mode, or publishing |
+| `sickn33/agentic-awesome-skills` | `7b534bc15d833baf3bc98b3ca4fb23eda48342bb` | Root MIT; docs CC-BY-4.0; imported skills retain their own licenses; no bulk import |
+| `K-Dense-AI/scientific-agent-skills` | `49c6e97775eaa18ba791bebe23162a70ae601c18` | Root MIT with per-skill exceptions; no clinical decisions, lab/cloud mutation, or hidden credentials |
+| `cathrynlavery/diagram-design` | `dc1ace47b99a419e42d01a03cb6ace5346efa8ae` | MIT skill; no bundled third-party assets; self-contained accessible HTML/SVG scope |
+
+These are local Cat Paw adaptations written for this repository. They are not upstream clones; the commit and license notes are audit and scope context, not a promise that an external source is bundled.
 
 Care with the security pack. Probe a target you own, or one you have in writing. Without that, no probe.
 
@@ -205,5 +222,5 @@ Push button. Ship software. Acquire treats. 🐾
 
 <p align="center">
   MIT · <a href="LICENSE">LICENSE</a>
-  · playbooks keep the license they shipped with
+  · external playbooks keep their upstream license; local adaptations are listed above
 </p>

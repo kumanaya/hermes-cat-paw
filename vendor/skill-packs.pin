@@ -1,6 +1,7 @@
-# Extra skill packs. Cloned at install into the Hermes home. Not baked into
-# the image. The cybersecurity pack stays in cybersecurity-skills.pin.
-# Playbook text is not relicensed. Each pack keeps the upstream license file.
+# Extra skill packs. External `pack` entries are cloned at install into the
+# Hermes home. Local `router` entries are copied from this repo and are baked
+# into the image. The cybersecurity pack stays in cybersecurity-skills.pin.
+# Playbook text is not relicensed. Each external pack keeps its upstream license.
 #
 # router <dir under skills/>   copied from this repo into the Hermes home
 # pack <id>
@@ -22,6 +23,18 @@ router finance-pack
 router design-pack
 router documents
 router academic-research-pack
+router software-delivery-pack
+router minimal-code-pack
+router token-efficient-agenting-pack
+router action-first-communication-pack
+router code-graph-pack
+router codebase-knowledge-pack
+router recent-research-pack
+router agent-skill-catalog-pack
+router scientific-research-pack
+router diagram-design-pack
+router target-workspace
+router plow-latch
 
 pack engineering-matt
 repo https://github.com/mattpocock/skills.git
