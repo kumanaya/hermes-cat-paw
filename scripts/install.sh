@@ -262,18 +262,35 @@ fi
 
 echo "Starting Compose with AGENT_ID=$AGENT_ID"
 docker compose -f "$ROOT/compose.yml" up --build -d
+if ! "$ROOT/scripts/install-skill-packs.sh" --routers-only; then
+  echo "install.sh: local router skill installation failed; stopping before verification." >&2
+  exit 1
+fi
 # Repair sticky-home ledger ownership, wait for state.db, and report as uid hermes.
 # Do not docker compose exec the Index client as root.
 "$ROOT/scripts/verify.sh"
+EXTRA_PACKS=0
+if "$ROOT/scripts/install-skill-packs.sh"; then
+  EXTRA_PACKS=1
+else
+  echo "install.sh: optional extra skill packs did not complete. Re-run scripts/install-skill-packs.sh." >&2
+fi
 # Cybersecurity pack is a runtime clone, not baked into the image. Failure here
 # does not undo the line; re-run scripts/install-skills.sh.
-if ! "$ROOT/scripts/install-skills.sh"; then
-  echo "install.sh: skill packs did not land. Re-run scripts/install-skills.sh." >&2
+CYBERSECURITY_PACK=0
+if "$ROOT/scripts/install-skills.sh"; then
+  CYBERSECURITY_PACK=1
+else
+  echo "install.sh: optional cybersecurity pack installation did not complete. Re-run scripts/install-skills.sh." >&2
 fi
 # Last lines of the log: installing agents relay name + number. Do not skip.
 echo "==== tell the owner (do not skip) ===="
 if ! "$ROOT/scripts/announce-line.sh"; then
   echo "install.sh: could not name the line. Do not make the owner guess." >&2
 fi
-echo "The agent is installed. The skill packs are in Hermes."
+if (( EXTRA_PACKS && CYBERSECURITY_PACK )); then
+  echo "The agent is installed. The skill packs are in Hermes."
+else
+  echo "The agent is installed; optional external pack installation was not fully confirmed. See the warnings above."
+fi
 echo "They text the number above from their phone."

@@ -1,5 +1,5 @@
 # Confirm the Compose agent reports as hermes-cat-paw. Always exec the Index
-# client as uid hermes — docker compose exec defaults to root and that breaks
+# client as uid hermes - docker compose exec defaults to root and that breaks
 # the sticky HERMES_HOME ledger.
 $ErrorActionPreference = "Stop"
 
@@ -82,7 +82,7 @@ Invoke-HermesClient status
 $status = $LASTEXITCODE
 Write-Host "verify: status exit $status (0=registered, 3=unregistered)"
 if ($status -eq 3) {
-    Write-Host "verify: not registered yet — registering now (do not wait for the 5-minute loop)"
+    Write-Host "verify: not registered yet - registering now (do not wait for the 5-minute loop)"
     Register-Page
     if ($LASTEXITCODE -eq 0) {
         Invoke-HermesClient status
@@ -105,6 +105,27 @@ if ($status -eq 0) {
 }
 $pack = docker compose -f $ComposeFile exec -T -u hermes $Service sh -c 'find /var/lib/hermes/skills/cybersecurity-skills -name SKILL.md -type f 2>/dev/null | wc -l'
 Write-Host "verify: cybersecurity-skills pack=$($pack.Trim()) (run scripts/install-skills.ps1 if this is 0)"
+$localPacks = @(
+    "software-delivery-pack",
+    "minimal-code-pack",
+    "token-efficient-agenting-pack",
+    "action-first-communication-pack",
+    "code-graph-pack",
+    "codebase-knowledge-pack",
+    "recent-research-pack",
+    "agent-skill-catalog-pack",
+    "scientific-research-pack",
+    "diagram-design-pack"
+)
+foreach ($localPack in $localPacks) {
+    $output = @(docker compose -f $ComposeFile exec -T -u hermes $Service sh -c "find /var/lib/hermes/skills/$localPack -name SKILL.md -type f 2>/dev/null | wc -l")
+    if ($LASTEXITCODE -ne 0) { throw "verify: could not inspect $localPack" }
+    $count = 0
+    $text = ($output -join "").Trim()
+    if (-not [int]::TryParse($text, [ref]$count)) { throw "verify: invalid SKILL.md count for $localPack" }
+    if ($count -ne 4) { throw "verify: $localPack=$count; expected exactly 4 SKILL.md files (router + 3 children)" }
+    Write-Host "verify: $localPack=$count"
+}
 foreach ($extra in @("engineering/mattpocock", "engineering/addyosmani", "engineering/alirezarezvani", "product", "marketing", "content", "sales", "finance", "customer-success", "design/emilkowalski", "design/ui-skills", "academic-research", "skill-packs")) {
     $n = docker compose -f $ComposeFile exec -T -u hermes $Service sh -c "find /var/lib/hermes/skills/$extra -name SKILL.md -type f 2>/dev/null | wc -l"
     Write-Host "verify: $extra=$($n.Trim())"

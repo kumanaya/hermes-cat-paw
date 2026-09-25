@@ -134,7 +134,7 @@ if (Test-Path -LiteralPath $Credentials -PathType Leaf) {
     if ((-not $free -or $free.Count -eq 0) -and -not $NewLine) {
         if ($all.Count -eq 0) {
             Write-Host "This Plow account has no assistant line yet (normal on a first install)."
-            Write-Host "Creating the first line — required so the agent can have a phone number."
+            Write-Host "Creating the first line - required so the agent can have a phone number."
             Write-Host "Another SMS will print. Relay it the same way and wait for: feito"
             $NewLine = $true
             Invoke-PlowLogin
@@ -169,13 +169,31 @@ if (-not (Test-Path -LiteralPath $Credentials -PathType Leaf)) {
 $Compose = Join-Path $Root "compose.yml"
 Write-Host "Starting Compose with AGENT_ID=$($env:AGENT_ID)"
 docker compose -f $Compose up --build -d
+if ($LASTEXITCODE -ne 0) { throw "install.ps1: Docker Compose failed to start." }
+try {
+    & (Join-Path $PSScriptRoot "install-skill-packs.ps1") -RoutersOnly
+    if ($LASTEXITCODE -ne 0) { throw "local router installation failed" }
+} catch {
+    throw "install.ps1: local router skill installation failed; stopping before verification."
+}
 # Repair sticky-home ledger ownership, wait for state.db, and report as uid hermes.
 & (Join-Path $PSScriptRoot "verify.ps1")
+$extraPacks = $false
+try {
+    & (Join-Path $PSScriptRoot "install-skill-packs.ps1")
+    if ($LASTEXITCODE -ne 0) { throw "extra pack installation failed" }
+    $extraPacks = $true
+} catch {
+    Write-Warning "install.ps1: optional extra skill packs did not complete. Re-run scripts/install-skill-packs.ps1."
+}
 # Cybersecurity pack is a runtime clone, not baked into the image.
+$cybersecurityPack = $false
 try {
     & (Join-Path $PSScriptRoot "install-skills.ps1")
+    if ($LASTEXITCODE -ne 0) { throw "cybersecurity pack installation failed" }
+    $cybersecurityPack = $true
 } catch {
-    Write-Host "install.ps1: skill packs did not land. Re-run scripts/install-skills.ps1."
+    Write-Warning "install.ps1: optional cybersecurity pack installation did not complete. Re-run scripts/install-skills.ps1."
 }
 # Last lines of the log: installing agents relay name + number. Do not skip.
 Write-Host "==== tell the owner (do not skip) ===="
@@ -184,5 +202,9 @@ try {
 } catch {
     Write-Host "install.ps1: could not name the line. Do not make the owner guess."
 }
-Write-Host "The agent is installed. The skill packs are in Hermes."
+if ($extraPacks -and $cybersecurityPack) {
+    Write-Host "The agent is installed. The skill packs are in Hermes."
+} else {
+    Write-Host "The agent is installed; optional external pack installation was not fully confirmed. See the warnings above."
+}
 Write-Host "They text the number above from their phone."

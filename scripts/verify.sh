@@ -137,6 +137,30 @@ pack="${pack//$'\r'/}"
 pack="${pack#"${pack%%[![:space:]]*}"}"
 echo "verify: cybersecurity-skills pack=${pack:-0} (run scripts/install-skills.sh if this is 0)"
 
+local_packs=(
+  software-delivery-pack
+  minimal-code-pack
+  token-efficient-agenting-pack
+  action-first-communication-pack
+  code-graph-pack
+  codebase-knowledge-pack
+  recent-research-pack
+  agent-skill-catalog-pack
+  scientific-research-pack
+  diagram-design-pack
+)
+for local_pack in "${local_packs[@]}"; do
+  n="$("${COMPOSE[@]}" exec -T -u hermes "$SERVICE" sh -c \
+    "find /var/lib/hermes/skills/$local_pack -name SKILL.md -type f 2>/dev/null | wc -l" || true)"
+  n="${n//$'\r'/}"
+  n="${n#"${n%%[![:space:]]*}"}"
+  if [[ "$n" -ne 4 ]]; then
+    echo "verify: $local_pack=${n:-0}; expected exactly 4 SKILL.md files (router + 3 children)" >&2
+    exit 1
+  fi
+  echo "verify: $local_pack=$n"
+done
+
 for extra in engineering/mattpocock engineering/addyosmani engineering/alirezarezvani product marketing content sales finance customer-success design/emilkowalski design/ui-skills academic-research skill-packs; do
   n="$("${COMPOSE[@]}" exec -T -u hermes "$SERVICE" sh -c \
     "find /var/lib/hermes/skills/$extra -name SKILL.md -type f 2>/dev/null | wc -l" || true)"
