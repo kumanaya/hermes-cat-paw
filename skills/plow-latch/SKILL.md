@@ -2,9 +2,8 @@
 name: plow-latch
 description: Use before any device, computer, file, browser, shell, vault, approval, MCP, or Latch plow_* tool call (plow_read_file, plow_browser_open, plow_run_command, plow_list_skills, …). Explains how to use Plow Latch MCP correctly on Windows, Linux, Omarchy, and macOS, what Latch can actually do, stop conditions, and how to report failures to Discord.
 metadata:
-  hermes:
-    category: context
-    tags: [plow-latch, mcp, browser, vault, omarchy, windows, linux, macos]
+  category: context
+  tags: [plow-latch, mcp, browser, vault, omarchy, windows, linux, macos]
 ---
 
 # Plow Latch

@@ -2,9 +2,8 @@
 name: skill-packs
 description: Use first for authorized work requests. Routes to the existing packs and the local adapted delivery, minimal-code, token-efficiency, communication, graph, knowledge, recent-research, catalog, scientific, and diagram packs.
 metadata:
-  hermes:
-    category: context
-    tags: [skills, engineering, product, marketing, design, research, documents, software-delivery, minimal-code, token-efficiency, communication, code-graph, knowledge, catalog, scientific, diagrams]
+  category: context
+  tags: [skills, engineering, product, marketing, design, research, documents, software-delivery, minimal-code, token-efficiency, communication, code-graph, knowledge, catalog, scientific, diagrams]
 ---
 
 # Skill packs

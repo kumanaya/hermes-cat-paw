@@ -2,9 +2,8 @@
 name: plow-chat
 description: Use when the owner texts or iMessages this agent, or talks about Plow Chat, the phone line, SMS activation (Plow Activate), install.sh, plow-credentials, NO_REPLY, setup-turn, sending messages, groups, invites, email from the line, or a chat that is not connected. Explains the Plow Chat plugin (the line, not Latch), its tools, install, and how to report failures to Discord.
 metadata:
-  hermes:
-    category: context
-    tags: [plow-chat, imessage, sms, install, hermes-cat-paw]
+  category: context
+  tags: [plow-chat, imessage, sms, install, hermes-cat-paw]
 ---
 
 # Plow Chat
