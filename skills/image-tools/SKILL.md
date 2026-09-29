@@ -2,9 +2,8 @@
 name: image-tools
 description: Use when choosing where a scanner runs, asking what CLIs this agent has, or about to apt-get gitleaks/semgrep/nmap inside Hermes. This image is slim: gitleaks, gh, jq, yq, shellcheck only. Heavy scanners and live probes go through Latch.
 metadata:
-  hermes:
-    category: context
-    tags: [image, gitleaks, gh, jq, yq, latch, authorized-testing]
+  category: context
+  tags: [image, gitleaks, gh, jq, yq, latch, authorized-testing]
 ---
 
 # Image tools

@@ -1,72 +1,41 @@
+"""Check the five skills this repository owns.
+
+The 51 shared playbooks live in
+https://github.com/kumanaya/cat-paw-workflows and are verified there, at the
+commit this image pins. What is left here are the skills that are statements
+about THIS agent — the boot, the state directory, how a reply is delivered,
+what is baked in this image — and they are the ones a shared repository cannot
+hold, because the same text would be false in the other runtime.
+
+So this file is small on purpose. It proves three things:
+
+  1. exactly the five are here, and nothing crept back in
+  2. each one is loadable by OpenClaw: a directory named after its frontmatter
+  3. each one actually names this runtime, which is the whole reason it is
+     local - a skill that stopped saying "Hermes" stopped earning its place
+"""
 from pathlib import Path
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "skills"
-EXPECTED_PACKS = {
-    "software-delivery-pack": (
-        "parallel-investigation-dag",
-        "skill-definition-pressure-test",
-        "software-architecture-decision-gate",
-    ),
-    "minimal-code-pack": (
-        "dependency-abstraction-removal-audit",
-        "feature-necessity-decision",
-        "technical-shortcut-debt-ledger",
-    ),
-    "token-efficient-agenting-pack": (
-        "agent-instruction-compression-safety-test",
-        "llm-callsite-inventory-and-labeling",
-        "reversible-agent-context-migration",
-    ),
-    "action-first-communication-pack": (
-        "low-cognitive-load-runbook",
-        "one-screen-incident-status-update",
-        "stalled-task-next-action-reset",
-    ),
-    "code-graph-pack": (
-        "code-change-blast-radius-map",
-        "cross-layer-feature-trace",
-        "repository-architecture-graph",
-    ),
-    "codebase-knowledge-pack": (
-        "business-domain-knowledge-map",
-        "codebase-onboarding-tour",
-        "evidence-linked-codebase-question-map",
-    ),
-    "recent-research-pack": (
-        "community-claim-sentiment-pulse",
-        "thirty-day-competitor-momentum-scan",
-        "thirty-day-cross-source-signal-brief",
-    ),
-    "agent-skill-catalog-pack": (
-        "agent-skill-catalog-discovery",
-        "agent-skill-provenance-license-review",
-        "minimal-agent-skill-stack-selection",
-    ),
-    "scientific-research-pack": (
-        "preregistered-study-power-plan",
-        "reproducible-scientific-compute-plan",
-        "scientific-result-claim-calibration",
-    ),
-    "diagram-design-pack": (
-        "release-migration-rollback-sequence-diagram",
-        "user-journey-lifecycle-state-map",
-        "website-architecture-trust-boundary-diagram",
-    ),
+
+# The five, and the runtime fact each one has to carry. A skill that names
+# neither OpenClaw nor its state directory has drifted back towards the shared
+# set, and the honest fix is to move it there, not to let it rot here.
+LOCAL_SKILLS = {
+    "plow-chat": (r"\bhermes\b", r"/var/lib/hermes"),
+    "plow-latch": (r"\bhermes\b", None),
+    "target-workspace": (r"\bhermes\b", r"/var/lib/hermes"),
+    "image-tools": (r"\bhermes\b", None),
+    "skill-packs": (r"\bhermes\b", None),
 }
 
-REQUIRED_BOUNDARY_ROUTERS = ("target-workspace", "plow-latch")
-
-PRECEDENCE_MARKERS = (
-    "cybersecurity and change-review first",
-    "exact named child outcome beats broad category rows",
-    "provenance/source/license review wins over generic skill pressure-testing",
-    "architecture decision planning wins over generic engineering architecture",
-    "feature-need validation wins over generic product ideation",
-    "bounded 30-day public/community signal wins over generic competitor/research",
-    "open exactly one child playbook",
-)
+# The other runtime. If one of these lands here it is a port that was pasted
+# the wrong way round, and it would be true in this image and false in the
+# other one.
+FORBIDDEN = re.compile(r"\bopenclaw\b", re.IGNORECASE)
 
 
 def read_frontmatter(path):
@@ -84,7 +53,6 @@ def read_frontmatter(path):
     name = None
     category = None
     in_metadata = False
-    in_hermes = False
     for line in lines[1:end]:
         if not line.strip():
             continue
@@ -96,123 +64,96 @@ def read_frontmatter(path):
         value = value.strip().strip("\"'")
         if indent == 0:
             in_metadata = key == "metadata" and not value
-            in_hermes = False
             if key == "name":
                 name = value
-        elif in_metadata and indent == 2 and key == "hermes":
-            in_hermes = not value
-        elif in_metadata and in_hermes and indent == 4 and key == "category":
+        elif in_metadata and indent == 2 and key == "category":
             category = value
     if not name:
         raise ValueError("missing frontmatter name")
     if category != "context":
-        raise ValueError("metadata.hermes.category must be context")
+        raise ValueError("metadata.category must be context")
     return name
-
-
-def pin_router_counts(path):
-    counts = {}
-    for raw in path.read_text(encoding="utf-8").splitlines():
-        line = raw.strip()
-        if not line or line.startswith("#"):
-            continue
-        fields = line.split(None, 1)
-        if len(fields) == 2 and fields[0] == "router":
-            name = fields[1].strip()
-            counts[name] = counts.get(name, 0) + 1
-    return counts
 
 
 def main():
     errors = []
-    expected_children = sum(len(children) for children in EXPECTED_PACKS.values())
-    if len(EXPECTED_PACKS) != 10 or expected_children != 30:
-        errors.append("the verifier must define exactly 10 packs and 30 children")
 
-    adapted = set()
-    for child in SKILLS.iterdir() if SKILLS.is_dir() else ():
-        if not child.is_dir():
-            continue
-        router = child / "SKILL.md"
-        if not router.is_file():
-            continue
-        try:
-            if "local Cat Paw adaptation" in router.read_text(encoding="utf-8"):
-                adapted.add(child.name)
-        except (OSError, UnicodeError):
-            continue
-    if adapted != set(EXPECTED_PACKS):
-        missing = sorted(set(EXPECTED_PACKS) - adapted)
-        extra = sorted(adapted - set(EXPECTED_PACKS))
+    if not SKILLS.is_dir():
+        print(f"verify-local-skills: no skills directory at {SKILLS}", file=sys.stderr)
+        return 1
+
+    actual = {child.name for child in SKILLS.iterdir() if child.is_dir()}
+    expected = set(LOCAL_SKILLS)
+    if actual != expected:
+        missing = sorted(expected - actual)
+        extra = sorted(actual - expected)
         if missing:
-            errors.append("missing adapted pack roots: " + ", ".join(missing))
+            errors.append("missing local skills: " + ", ".join(missing))
         if extra:
-            errors.append("unexpected adapted pack roots: " + ", ".join(extra))
+            errors.append(
+                "skills here that belong in cat-paw-workflows: " + ", ".join(extra)
+            )
 
-    for pack, children in EXPECTED_PACKS.items():
-        root = SKILLS / pack
-        if not root.is_dir():
-            errors.append(f"missing adapted pack directory: {pack}")
+    total = 0
+    for name, (needs_runtime, needs_state_dir) in sorted(LOCAL_SKILLS.items()):
+        path = SKILLS / name / "SKILL.md"
+        if not path.is_file():
+            errors.append(f"missing local skill: skills/{name}/SKILL.md")
             continue
-        expected_files = {"SKILL.md"}
-        expected_files.update(f"{child}/SKILL.md" for child in children)
-        actual_files = set()
+        total += 1
         try:
-            for path in root.rglob("SKILL.md"):
-                if path.is_file():
-                    actual_files.add(path.relative_to(root).as_posix())
-        except OSError as exc:
-            errors.append(f"{pack}: cannot enumerate SKILL.md files: {exc}")
-        if actual_files != expected_files:
-            missing = sorted(expected_files - actual_files)
-            extra = sorted(actual_files - expected_files)
-            if missing:
-                errors.append(f"{pack}: missing SKILL.md files: {', '.join(missing)}")
-            if extra:
-                errors.append(f"{pack}: unexpected SKILL.md files: {', '.join(extra)}")
-        for relative in sorted(expected_files & actual_files):
-            path = root / relative
-            directory_name = pack if relative == "SKILL.md" else relative.rsplit("/", 1)[0]
-            try:
-                actual_name = read_frontmatter(path)
-            except (OSError, UnicodeError, ValueError) as exc:
-                errors.append(f"{path}: {exc}")
-                continue
-            if actual_name != directory_name:
-                errors.append(f"{path}: frontmatter name {actual_name!r} does not match {directory_name!r}")
+            frontmatter_name = read_frontmatter(path)
+        except (OSError, UnicodeError, ValueError) as exc:
+            errors.append(f"{path}: {exc}")
+            continue
+        if frontmatter_name != name:
+            errors.append(
+                f"{path}: frontmatter name {frontmatter_name!r} does not match the directory"
+            )
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (OSError, UnicodeError) as exc:
+            errors.append(f"{path}: cannot read: {exc}")
+            continue
+        if not re.search(needs_runtime, text, re.IGNORECASE):
+            errors.append(
+                f"skills/{name}/SKILL.md: names no runtime. A local skill earns its place by "
+                "describing this agent; if it does not, it belongs in cat-paw-workflows."
+            )
+        if needs_state_dir and not re.search(needs_state_dir, text):
+            errors.append(
+                f"skills/{name}/SKILL.md: does not mention {needs_state_dir}. That path is the "
+                "one this agent actually uses; a stale one sends the model to the wrong place."
+            )
+        found = FORBIDDEN.search(text)
+        if found:
+            line = text[: found.start()].count("\n") + 1
+            errors.append(
+                f"skills/{name}/SKILL.md:{line}: names the other runtime ({found.group(0)!r}). "
+                "This is the Hermes agent."
+            )
 
-    pin = ROOT / "vendor" / "skill-packs.pin"
+    pin = ROOT / "vendor" / "cat-paw-workflows.pin"
     try:
-        router_counts = pin_router_counts(pin)
+        lines = pin.read_text(encoding="utf-8").splitlines()
     except (OSError, UnicodeError) as exc:
         errors.append(f"{pin}: cannot read pin: {exc}")
-        router_counts = {}
-    for pack in EXPECTED_PACKS:
-        if router_counts.get(pack, 0) != 1:
-            errors.append(f"{pack}: expected exactly one router entry in {pin.name}, found {router_counts.get(pack, 0)}")
-    for router in REQUIRED_BOUNDARY_ROUTERS:
-        if router_counts.get(router, 0) != 1:
-            errors.append(f"{router}: expected exactly one boundary router entry in {pin.name}, found {router_counts.get(router, 0)}")
-
-    catalog = SKILLS / "skill-packs" / "SKILL.md"
-    try:
-        catalog_text = catalog.read_text(encoding="utf-8")
-    except (OSError, UnicodeError) as exc:
-        errors.append(f"{catalog}: cannot read router map: {exc}")
-        catalog_text = ""
-    normalized_catalog = " ".join(catalog_text.split()).lower()
-    for marker in PRECEDENCE_MARKERS:
-        if marker not in normalized_catalog:
-            errors.append(f"skills/skill-packs/SKILL.md: missing precedence rule: {marker}")
-    for pack in EXPECTED_PACKS:
-        if f"`{pack}`" not in catalog_text:
-            errors.append(f"{pack}: router is not named in skills/skill-packs/SKILL.md")
+        lines = []
+    sha = next((l[4:] for l in lines if l.startswith("sha=")), "")
+    repo = next((l[5:] for l in lines if l.startswith("repo=")), "")
+    if not repo or not sha:
+        errors.append(f"{pin}: needs both a repo= and a sha= line")
+    elif len(sha) != 40 or not re.fullmatch(r"[0-9a-f]{40}", sha):
+        errors.append(f"{pin}: sha must be a full 40-character commit, got {sha!r}")
 
     if errors:
         for error in errors:
             print(f"verify-local-skills: {error}", file=sys.stderr)
         return 1
-    print("verify-local-skills: 10 adapted packs, 30 children, and 40 SKILL.md files verified")
+    print(
+        f"verify-local-skills: {total} runtime-specific skills verified, and "
+        f"the shared playbooks are pinned at {sha[:12]}"
+    )
     return 0
 
 

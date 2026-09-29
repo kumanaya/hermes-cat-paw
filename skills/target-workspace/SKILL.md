@@ -2,9 +2,8 @@
 name: target-workspace
 description: Use before recon, pentest, PR review, snippet testing, or any Latch write. Creates one ~/CatPaw/workspaces/<slug> folder per authorized target on the owner's computer (Latch), never inside the Hermes container and never under ~/Plow. Fixed layout for scope, checkout, scans, reviews, reports.
 metadata:
-  hermes:
-    category: context
-    tags: [workspace, evidence, latch, scope, authorized-testing]
+  category: context
+  tags: [workspace, evidence, latch, scope, authorized-testing]
 ---
 
 # Target workspace
